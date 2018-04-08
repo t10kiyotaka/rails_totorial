@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 kiyotaka:
-  name: kiyotaka
+  name: Kiyotaka fixture
   email: t10kiyotaka@gmail.com
   password_digest: <%= User.digest('password') %>
