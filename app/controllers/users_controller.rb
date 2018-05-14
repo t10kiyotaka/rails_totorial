@@ -9,6 +9,7 @@ before_action :admin_user, only: :destroy
   
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
     #演習11.3.3（リスト11.40）で追加したが、あっているか不明
     redirect_to root_url and return unless @user.activated == true
   end
@@ -53,16 +54,8 @@ before_action :admin_user, only: :destroy
           :password_confirmation)
     end
     
-    #beforeアクション
+    #beforeフィルター
     
-    #check whether logged in user
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
     
     #check whether correct user
     def correct_user
