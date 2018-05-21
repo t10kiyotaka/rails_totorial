@@ -80,4 +80,33 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.authenticated?(:remember,'')
   end
   
+  test "should follow and unfollow a user" do
+    kiyotaka = users(:kiyotaka)
+    archer = users(:archer)
+    assert_not kiyotaka.following?(archer)
+    kiyotaka.follow(archer)
+    assert kiyotaka.following?(archer)
+    assert archer.followers.include?(kiyotaka)
+    kiyotaka.unfollow(archer)
+    assert_not kiyotaka.following?(archer)
+  end
+  
+  test "feed should have the right posts" do
+    kiyotaka = users(:kiyotaka)
+    archer = users(:archer)
+    lana = users(:lana)
+    #フォローしているユーザーの投稿を確認
+    lana.microposts.each do |post_following|
+      assert kiyotaka.feed.include?(post_following)
+    end
+    #自分自身の投稿を確認
+    kiyotaka.microposts.each do |post_self|
+      assert kiyotaka.feed.include?(post_self)
+    end
+    #フォローしていないユーザーの投稿を確認
+    archer.microposts.each do |post_unfollowed|
+      assert_not kiyotaka.feed.include?(post_unfollowed)
+    end
+  end
+  
 end
