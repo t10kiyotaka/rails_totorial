@@ -262,7 +262,7 @@ input{
     margin-left: 60px;
     img {
       display: block;
-      padding: 5px 0;
+      padding: 10px 0;
     }
   }
   .timestamp {
@@ -274,8 +274,14 @@ input{
     float: left;
     margin-right: 10px;
     margin-top: 5px;
+    height: 50px;
   }
 }
+
+.microposts {
+  list-style: none;
+  padding: 0;
+  }
 
 aside {
   textarea {
@@ -290,4 +296,3 @@ span.picture {
     border: 0;
   }
 }
-
